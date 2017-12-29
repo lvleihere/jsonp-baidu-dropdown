@@ -1,132 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>jsonp-百度下拉框</title>
-	</head>
-	<script>
-		function jackwang(data) {
-			var ul = document.getElementById("ul")
-			var lis = " ";
-			if(data.s.length) {
-				for(var i = 0; i < data.s.length; i++) {
-					ul.style.display = "block";
-					lis += '<li><a target="_blank" href="https://www.baidu.com/s?wd=' + data.s[i] + '">' + data.s[i] + '</a></li>';
-				}
-			} else {
-				ul.style.display = "none";
-			}
+<head>
+  <meta charset="UTF-8">
+  <title>jsonp-百度下拉框</title>
+</head>
+<script>
+  function jackwang(data) {
+    var ul = document.getElementById("ul")
+    var lis = " ";
+    if (data.s.length) {
+      for (var i = 0; i < data.s.length; i++) {
+        ul.style.display = "block";
+        lis += '<li><a target="_blank" href="https://www.baidu.com/s?wd=' + data.s[i] + '">' + data.s[i] + '</a></li>';
+      }
+    } else {
+      ul.style.display = "none";
+    }
+    ul.innerHTML = lis;
+  }
 
-			ul.innerHTML = lis;
+  window.onload = function () {
+    var q = document.getElementById("q");
+    var ul = document.getElementById("ul");
+    var btn = document.getElementsByClassName('btn')[0];
+    q.onkeyup = function () {
+      if (this.value != " ") {
+        var oSrc = document.createElement("script")
+        oSrc.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + this.value + "&cb=jackwang";
+        document.body.appendChild(oSrc)
+      } else {
+        ul.style.display = "none";
+      }
+    }
+    btn.onclick = function () {
+      var ul = document.getElementById("ul")
+      var html = " ";
+      if (q.value == "") {
+        alert("认真输入哟！")
+        console.log("1");
+      } else {
 
-		}
+        var oSrc = document.createElement("script")
+        console.log("2");
+        html += '<li><a target="_blank" href="https://www.baidu.com/s?wd=' + q.value + '"></a></li>';
+        console.log("3");
+        document.body.appendChild(oSrc);
+        console.log("4");
+      }
+      ul.innerHTML = html;
+    }
+  }
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-		window.onload = function() {
-			var q = document.getElementById("q");
-			var ul = document.getElementById("ul");
-			var btn = document.getElementsByClassName('btn')[0];
-			q.onkeyup = function() {
-				if(this.value != " ") {
-					var oSrc = document.createElement("script")
-					oSrc.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + this.value + "&cb=jackwang";
-					document.body.appendChild(oSrc)
-				} else {
-					ul.style.display = "none";
-				}
-			}
-			btn.onclick = function() {
-				var ul = document.getElementById("ul")
-				var html = " ";
-				if(q.value == "") {
-					alert("认真输入哟！")
-					console.log("1");
-				} else {
+  .searchBox {
+    width: 510px;
+    height: 500px;
+    margin: 0 auto;
+  }
 
-					var oSrc = document.createElement("script")
-					console.log("2");
-					html += '<li><a target="_blank" href="https://www.baidu.com/s?wd=' + q.value + '"></a></li>';
-					console.log("3");
-					document.body.appendChild(oSrc);
-					console.log("4");
-				}
-				ul.innerHTML = html;
-			}
-		}
-	</script>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		
-		.searchBox {
-			width: 510px;
-			height: 500px;
-			margin: 0 auto;
-		}
-		
-		ul li a {
-			text-decoration: none;
-			color: black;
-		}
-		
-		#p {
-			width: 250px;
-			height: 30px;
-			border: 1px solid #000;
-		}
-		
-		ul {
-			width: 407px;
-			border-left: 1px solid #ccc;
-			border-right: 1px solid #ccc;
-			background: white;
-			margin-left: 50px;
-			display: none;
-		}
-		
-		ul li {
-			height: 25px;
-			line-height: 25px;
-			/*text-align: center;*/
-			border-bottom: 1px solid #ccc;
-			font-size: 14px;
-			list-style: none;
-			text-decoration: none;
-			padding-left: 5px;
-		}
-		
-		ul li:hover {
-			background: #eee;
-			color: black;
-		}
-		
-		#q {
-			display: block;
-			margin: 100px auto 0;
-			width: 400px;
-			height: 40px;
-			padding: 0 0 0 5px;
-			font-size: 16px;
-		}
-		
-		.btn {
-			width: 80px;
-			height: 30px;
-			display: block;
-			float: right;
-			margin-top: 10px;
-		}
-	</style>
+  ul li a {
+    text-decoration: none;
+    color: black;
+  }
 
-	<body>
-		<div class="searchBox">
-			<input type="text" id="q" placeholder="请输入搜索内容">
-			<button class="btn">点击搜索</button>
-			<ul id="ul">
-			</ul>
-		</div>
-	</body>
+  #p {
+    width: 250px;
+    height: 30px;
+    border: 1px solid #000;
+  }
+
+  ul {
+    width: 407px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background: white;
+    margin-left: 50px;
+    display: none;
+  }
+
+  ul li {
+    height: 25px;
+    line-height: 25px;
+    /*text-align: center;*/
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    list-style: none;
+    text-decoration: none;
+    padding-left: 5px;
+  }
+
+  ul li:hover {
+    background: #eee;
+    color: black;
+  }
+
+  #q {
+    display: block;
+    margin: 100px auto 0;
+    width: 400px;
+    height: 40px;
+    padding: 0 0 0 5px;
+    font-size: 16px;
+  }
+
+  .btn {
+    width: 80px;
+    height: 30px;
+    display: block;
+    float: right;
+    margin-top: 10px;
+  }
+</style>
+
+<body>
+  <div class="searchBox">
+    <input type="text" id="q" placeholder="请输入搜索内容">
+    <button class="btn">点击搜索</button>
+    <ul id="ul">
+    </ul>
+  </div>
+</body>
 
 </html>
